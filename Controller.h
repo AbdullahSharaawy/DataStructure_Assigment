@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 #include"DataAccess.h"
 #include"SortingSystem.h"
 #include"DataInput.h"
