@@ -6,28 +6,28 @@ using namespace std;
 class DataInput
 {
 private:
-	
+
 public:
     static void SelectDataType();
     static int ReadChoice(int from, int to);
     static string ReadFileName(string Message);// Read file of Data
-     static string DataType;
+    static string DataType;
 };
 
- 
+
 
 inline int DataInput::ReadChoice(int from, int to)
 {
     int choice;
     while (true)
     {
-        cout << "Enter a number between 1 and 9: ";
+        cout << "Enter a number between "<<from<<" and "<<to<<": ";
         cin >> choice;
 
         if (cin.fail() || choice < from || choice > to)
         {
-              cin.clear(); // Clear the error flag
-              cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore the invalid input
+            cin.clear(); // Clear the error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore the invalid input
             cout << "Invalid input. Please enter a number between " << from << " and " << to << endl;
         }
         else
@@ -54,14 +54,19 @@ inline void DataInput::SelectDataType()
     {
     case 1:
         DataInput::DataType = "int";
+        break;
     case 2:
         DataInput::DataType = "float";
+        break;
     case 3:
         DataInput::DataType = "double";
+        break;
     case 4:
         DataInput::DataType = "char";
+        break;
     case 5:
         DataInput::DataType = "string";
+        break;
     }
 
 }
