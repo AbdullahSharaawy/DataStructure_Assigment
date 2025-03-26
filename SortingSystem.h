@@ -1,6 +1,7 @@
 #include <iostream>
 #include"DataInput.h"
 #include<string>// use it for casting only
+#include <cctype>
 static bool TurnOn = false;
 static int mod = 10;
 using namespace std;
@@ -117,12 +118,10 @@ void SortingSystem<T>::countSort() {
 
 
         int* Temp = new int[_size] { 0 };
-        if(!TurnOn)// use this print for count sort only not radix sort
         cout << "count the numbers and store it in the count array\n";
         for (int i = 0; i < _size; i++) {
             int index = (x(static_cast<int>(_data[i]))); 
             Count[index]++;
-            if (!TurnOn)// use it for count sort only not radix sort
             {
                 cout << "Iteration " << ++CountIteration << ": ";
                 for (size_t j = 0; j < _size; j++)
@@ -134,12 +133,10 @@ void SortingSystem<T>::countSort() {
             
         }
         CountIteration = 0;
-        if(!TurnOn)// use this print for count sort only not radix sort
         cout << "compute the comulative and store it in the count array\n";
         
         for (int i = 1; i <= K; i++) {
             Count[i] += Count[i - 1];
-            if (!TurnOn)// use it for count sort only not radix sort
             {
                 cout << "Iteration " << ++CountIteration << ": ";
                 for (size_t j = 0; j < _size; j++)
@@ -154,7 +151,7 @@ void SortingSystem<T>::countSort() {
         cout << "iterations for sorting the data\n";
         for (int i = _size - 1; i >= 0; i--) {
             int index = (x(static_cast<int>(_data[i])));
-            Temp[Count[index] - 1] = x(static_cast<int>(_data[i]));
+            Temp[Count[index] - 1] = static_cast<int>(_data[i]);
             Count[index]--;
 
             //print the iterations
@@ -496,8 +493,8 @@ void SortingSystem<T>::bucketSort()
         for (size_t i = 0; i < this->_size; i++)
         {
             int index = (static_cast<int>(this->_data[i]) - Min) / range;
-            while (index >= BucketCount)
-                index--;
+            if (index >= BucketCount)
+                index=BucketCount-1;
             Buckets[index][BucketsSizes[index]++] = this->_data[i];
          }
         cout << "Iterations for store the data in the buckets\n";
@@ -562,7 +559,7 @@ void SortingSystem<T>::bucketSort()
        
         for (size_t i = 0; i < this->_size; i++)
         {
-            int index = (_data[i][0]-'a');
+            int index = (tolower(_data[i][0])-'a');
             Buckets[index][BucketsSizes[index]++] = this->_data[i];
             
         }
@@ -607,7 +604,7 @@ void SortingSystem<T>::bucketSort()
                 newData[index++] = Buckets[i][j];
             }
         }
-        cout << "the data after merge the buckets it\n";
+        cout << "the data after merge the buckets \n";
         for (size_t i = 0; i < _size; i++)
         {
             cout << newData[i] << ", ";
