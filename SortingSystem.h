@@ -1,7 +1,8 @@
 #include <iostream>
-#include<string>// use it for casting only
+#include <string>// use it for casting only
 #include <cctype>
 #include <cmath>
+#include <chrono>
 #include"DataInput.h"
 
 static bool TurnOn = false;
@@ -41,11 +42,37 @@ public:
 
     // Utility function to print the array
     void displayData();
+    void measureSortTime(void (SortingSystem::*sortFunc)());
+    // overwrite for merge and quick sort
+    void measureSortTime(void (SortingSystem::*sortFunc)(int, int), int left = 0, int right = -1);
 
     void showMenu();
 
     void selectSortingAlgorithm();
 };
+
+template<typename T>
+void SortingSystem<T>::measureSortTime(void (SortingSystem<T>::*sortFunc)()) {
+    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
+    (this->*sortFunc)();
+
+    chrono::steady_clock::time_point end = chrono::steady_clock::now();
+
+    cout << "\nSorting Time = " << chrono::duration_cast<chrono::microseconds>(end - begin).count() << " µs" << endl;
+}
+
+template<typename T>
+void SortingSystem<T>::measureSortTime(void (SortingSystem<T>::*sortFunc)(int, int), int left, int right) {
+    if (right == -1) right = this->_size - 1;
+    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
+    (this->*sortFunc)(left, right);
+
+    chrono::steady_clock::time_point end = chrono::steady_clock::now();
+
+    cout << "\nSorting Time = " << chrono::duration_cast<chrono::microseconds>(end - begin).count() << " µs" << endl;
+}
 
 template<typename T>
 void SortingSystem<T>::SetData(T *_Data) {
@@ -176,33 +203,32 @@ void SortingSystem<T>::selectSortingAlgorithm() {
     displayData();
     switch (choice) {
         case 1:
-            insertionSort();
+            measureSortTime(&SortingSystem::insertionSort);
             break;
         case 2:
-            selectionSort();
+            measureSortTime(&SortingSystem::selectionSort);
             break;
         case 3:
-            bubbleSort();
+            measureSortTime(&SortingSystem::bubbleSort);
             break;
         case 4:
-            shellSort();
+            measureSortTime(&SortingSystem::shellSort);
             break;
         case 5:
-            mergeSort(0, this->_size - 1);
+            measureSortTime(&SortingSystem::mergeSort);
             break;
         case 6:
-            quickSort(0, this->_size - 1);
+            measureSortTime(&SortingSystem::quickSort);
             break;
         case 7:
-            countSort();
+            measureSortTime(&SortingSystem::countSort);
             break;
         case 8:
-            radixSort();
+            measureSortTime(&SortingSystem::radixSort);
             break;
         case 9:
-            bucketSort();
+            measureSortTime(&SortingSystem::bucketSort);
             break;
-
     }
 }
 
