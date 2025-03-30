@@ -147,8 +147,7 @@ int main() {
     try {
         cout << L[10] << endl; // Throws out_of_range exception
     } catch (out_of_range &e) {
-        cout << "error happened: " << endl;
-        cout << e.what() << endl;
+        cout << "error happened: " << e.what() << endl;
     }
 
     {
