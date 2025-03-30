@@ -11,7 +11,7 @@ using namespace std;
 template<typename T>
 class SortingSystem {
 private:
-    T *_data;       // Pointer to the array to be sorted
+    T *_data = nullptr;       // Pointer to the array to be sorted
     int _size;      // Size of the array
     int CountIteration = 0;
 public:
