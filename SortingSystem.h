@@ -1,7 +1,8 @@
 #include <iostream>
-#include"DataInput.h"
 #include<string>// use it for casting only
 #include <cctype>
+#include <cmath>
+#include"DataInput.h"
 
 static bool TurnOn = false;
 static int mod = 10;
