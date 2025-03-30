@@ -56,7 +56,6 @@ void SortingSystem<T>::SetData(T *_Data) {
     T *newData = nullptr;
     try {
         newData = new T[_size];
-
     }
     catch (const std::bad_alloc &e) {
         // Handle memory allocation failure
@@ -66,15 +65,11 @@ void SortingSystem<T>::SetData(T *_Data) {
     // Copy data element-wise
     for (size_t i = 0; i < _size; i++) {
         newData[i] = _Data[i];
-
     }
 
     // Delete old data and replace with new data
     delete[] _data; // Safe to delete even if _data is nullptr
-
     _data = newData;
-
-
 }
 
 template<typename T>
@@ -107,9 +102,7 @@ void SortingSystem<T>::countSort() {
     if constexpr (is_integral<T>::value) {
         if (_size <= 1) return; // No need to sort if array has 0 or 1 element
 
-
         auto x = [](T n) { return TurnOn ? (n % mod) / (mod / 10) : n; };
-
 
         int maxElement = x(static_cast<int>(_data[0]));
         for (size_t i = 0; i < this->_size; i++) {
@@ -117,12 +110,9 @@ void SortingSystem<T>::countSort() {
                 maxElement = x(static_cast<int>(_data[i]));
         }
         int K = (maxElement); // Convert to integer for counting
-
-
         int *Count = new int[K + 1]{0};
-
-
         int *Temp = new int[_size]{0};
+
         cout << "count the numbers and store it in the count array\n";
         for (int i = 0; i < _size; i++) {
             int index = (x(static_cast<int>(_data[i])));
@@ -173,17 +163,13 @@ void SortingSystem<T>::countSort() {
         CountIteration = 0;
         delete[] Count;
         delete[] Temp;
-
-
     }
-
 };
 
 template<typename T>
 void SortingSystem<T>::selectSortingAlgorithm() {
     showMenu();
     int choice = DataInput::ReadChoice(1, 9);
-
 
     cout << "\nInitial Data: ";
     displayData();
@@ -284,7 +270,6 @@ void SortingSystem<T>::selectionSort() {
             if (_data[j] < _data[MinIndex]) {
                 MinIndex = j;
             }
-
         }
         T temp = _data[i];
         _data[i] = _data[MinIndex];
@@ -334,7 +319,7 @@ void SortingSystem<T>::merge(int left, int mid, int right) {
     index = 0;
     for (int i = left; i <= right; i++)
         _data[i] = temp[index++];
-    //print iterations
+    // print iterations
     cout << "Iteration " << ++CountIteration << ": ";
     displayData();
 
@@ -346,7 +331,6 @@ void SortingSystem<T>::quickSort(int left, int right) {
         int _PivotIndex = partition(left, right);
         quickSort(left, _PivotIndex - 1);
         quickSort(_PivotIndex + 1, right);
-
     }
     CountIteration = 0;
 }
@@ -362,7 +346,6 @@ int SortingSystem<T>::partition(int low, int high) {
         b = temp;
     };
 
-
     while (StartIndex <= EndIndex) {
         while (StartIndex <= EndIndex && _data[StartIndex] <= _data[PivotIndex])
             StartIndex++;
@@ -376,8 +359,8 @@ int SortingSystem<T>::partition(int low, int high) {
     //print iterations
     cout << "Iteration " << ++CountIteration << ": ";
     displayData();
-    return EndIndex;
 
+    return EndIndex;
 }
 
 template<typename T>
@@ -412,7 +395,6 @@ void SortingSystem<T>::bucketSort() {
     auto insertionSort = [](T *data, int size) {
         for (int i = 0; i < size - 1; i++) {
             for (int j = i + 1; j > 0; j--) {
-
                 if (data[j] < data[j - 1]) {
                     T tmep = data[j];
                     data[j] = data[j - 1];
@@ -421,8 +403,8 @@ void SortingSystem<T>::bucketSort() {
                 } else break;
             }
         }
-
     };
+
     int BucketCount;
     T **Buckets = nullptr;
     int *BucketsSizes = nullptr;
@@ -466,8 +448,8 @@ void SortingSystem<T>::bucketSort() {
 
             for (size_t j = 0; j < BucketsSizes[k]; j++)
                 cout << Buckets[k][j] << ", ";
-            cout << endl;
 
+            cout << endl;
         }
 
         // sorting
@@ -499,9 +481,8 @@ void SortingSystem<T>::bucketSort() {
             cout << newData[i] << ", ";
         }
         cout << endl;
-
     }
-        // algo for string
+    // algo for string
     else if constexpr (is_same_v<T, string>) {
         BucketCount = 28;
         Buckets = new T *[BucketCount];
@@ -517,7 +498,7 @@ void SortingSystem<T>::bucketSort() {
         }
         cout << "Iterations for store the data in the buckets\n";
 
-        //print iterations
+        // print iterations
         for (size_t k = 0; k < BucketCount; k++) {
             cout << "Bucket " << k + 1 << ": ";
 
@@ -530,7 +511,7 @@ void SortingSystem<T>::bucketSort() {
         for (size_t i = 0; i < BucketCount; i++) {
             insertionSort(Buckets[i], BucketsSizes[i]);
         }
-        //print iterations
+        // print iterations
         cout << "Iterations for sorting the buckets\n";
 
         for (size_t k = 0; k < BucketCount; k++) {
@@ -539,7 +520,6 @@ void SortingSystem<T>::bucketSort() {
             for (size_t j = 0; j < BucketsSizes[k]; j++)
                 cout << Buckets[k][j] << ", ";
             cout << endl;
-
         }
 
         int index = 0;
@@ -557,11 +537,13 @@ void SortingSystem<T>::bucketSort() {
         }
         cout << endl;
     }
+
     delete[] this->_data;
     this->_data = newData;
     for (int i = 0; i < BucketCount; i++) {
         delete[] Buckets[i]; // Delete each bucket
     }
+
     delete[] Buckets;      // Delete bucket pointers array
     delete[] BucketsSizes;  // Delete bucket sizes array
 }
