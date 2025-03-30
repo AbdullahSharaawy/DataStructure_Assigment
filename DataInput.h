@@ -69,7 +69,7 @@ inline void DataInput::SelectDataType() {
 inline string DataInput::ReadFileName(string message) {
     string FileName;
     while (true) {
-        cout << message << endl;
+        cout << message;
         getline(cin, FileName);
 
         // Check if the file exists
@@ -83,4 +83,3 @@ inline string DataInput::ReadFileName(string message) {
     }
     return FileName;
 }
-
