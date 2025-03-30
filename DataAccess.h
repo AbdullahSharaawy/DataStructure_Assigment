@@ -5,21 +5,19 @@
 #include<string>
 #include<limits>
 #include"DataInput.h"
+
 using namespace std;
+
 template<typename T>
-class  DataAccess
-{
+class DataAccess {
 
 public:
-    static void ReadData(T*& _Data, int& size);// read data from the file
+    static void ReadData(T *&_Data, int &size);// read data from the file
 
 };
 
-
-
 template<typename T>
-inline void DataAccess<T>::ReadData(T*& _Data, int& size)
-{
+inline void DataAccess<T>::ReadData(T *&_Data, int &size) {
 
     string FileName = DataInput::ReadFileName("Enter The File Name: ");
     string line;
@@ -36,12 +34,9 @@ inline void DataAccess<T>::ReadData(T*& _Data, int& size)
     _Data = new T[size];
 
     while (index < size) {
-            file >> _Data[index++];
+        file >> _Data[index++];
 
     }
 
     file.close();
-
 }
-
-

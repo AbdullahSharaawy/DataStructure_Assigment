@@ -6,14 +6,15 @@ using namespace std;
 class Node {
 public:
     int data;
-    Node* next;
+    Node *next;
+
     Node(int val);
 };
 
 // Sorted Linked List Class
 class SortedLinkedList {
 private:
-    Node* head;
+    Node *head;
 
 public:
     SortedLinkedList(); // Constructed
@@ -22,7 +23,7 @@ public:
     void remove(int index);
 
     // Overloaded operators
-    friend ostream& operator<<(ostream& os, const SortedLinkedList& list);
+    friend ostream &operator<<(ostream &os, const SortedLinkedList &list);
     int operator[](int index);
 
     ~SortedLinkedList();
@@ -36,7 +37,6 @@ Node::Node(int val) {
 SortedLinkedList::SortedLinkedList() {
     head = nullptr;
 }
-
 
 void SortedLinkedList::insert(int value) {
     Node *newNode = new Node(value);
@@ -115,7 +115,7 @@ int SortedLinkedList::operator[](int index) {
         current = current->next;
     }
 
-    throw std::out_of_range ("index out of range");
+    throw std::out_of_range("index out of range");
 }
 
 SortedLinkedList::~SortedLinkedList() {
@@ -154,7 +154,7 @@ int main() {
         cout << "test case 3:" << endl;
         SortedLinkedList L;
         int arr[] = {5, 6, 6, 7, 8};
-        for (int element : arr) {
+        for (int element: arr) {
             L.insert(element);
         }
         L.remove(0); // L = [6, 6, 7, 8]
