@@ -140,7 +140,7 @@ int main() {
     L.insert(6); // L = [5, 6, 7, 8]
     cout << L << endl;
     L.insert(6); // L = [5, 6, 6, 7, 8]
-    cout << L; // Output: [5, 6, 6, 7, 8]
+    cout << L << endl; // Output: [5, 6, 6, 7, 8]
 
     cout << "test case 2:" << endl;
     cout << L[2] << endl; // Output: 6
