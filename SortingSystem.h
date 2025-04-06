@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>// use it for casting only
+
 #include <cctype>
 #include <cmath>
 #include <chrono>
@@ -132,10 +132,10 @@ void SortingSystem<T>::countSort() {
 
         auto x = [](T n) { return TurnOn ? (n % mod) / (mod / 10) : n; };
 
-        int maxElement = x(static_cast<int>(_data[0]));
+        int maxElement = x(_data[0]);
         for (size_t i = 0; i < this->_size; i++) {
-            if (maxElement < x(static_cast<int>(_data[i])))
-                maxElement = x(static_cast<int>(_data[i]));
+            if (maxElement < x(_data[i]))
+                maxElement = x(_data[i]);
         }
         int K = (maxElement); // Convert to integer for counting
         int *Count = new int[K + 1]{0};
@@ -143,11 +143,11 @@ void SortingSystem<T>::countSort() {
 
         cout << "count the numbers and store it in the count array\n";
         for (int i = 0; i < _size; i++) {
-            int index = (x(static_cast<int>(_data[i])));
+            int index = (x(_data[i]));
             Count[index]++;
             {
                 cout << "Iteration " << ++CountIteration << ": ";
-                for (size_t j = 0; j < _size; j++) {
+                for (size_t j = 0; j < K+1; j++) {
                     cout << Count[j] << ", ";
                 }
                 cout << endl;
@@ -161,7 +161,7 @@ void SortingSystem<T>::countSort() {
             Count[i] += Count[i - 1];
             {
                 cout << "Iteration " << ++CountIteration << ": ";
-                for (size_t j = 0; j < _size; j++) {
+                for (size_t j = 0; j < K+1; j++) {
                     cout << Count[j] << ", ";
                 }
                 cout << endl;
@@ -171,8 +171,8 @@ void SortingSystem<T>::countSort() {
         CountIteration = 0;
         cout << "iterations for sorting the data\n";
         for (int i = _size - 1; i >= 0; i--) {
-            int index = (x(static_cast<int>(_data[i])));
-            Temp[Count[index] - 1] = static_cast<int>(_data[i]);
+            int index = (x(_data[i]));
+            Temp[Count[index] - 1] = _data[i];
             Count[index]--;
 
             //print the iterations
@@ -398,8 +398,8 @@ void SortingSystem<T>::radixSort() {
         int d = 0;// number of call the Count Sort
 
         for (size_t i = 0; i < _size; i++) {
-            if (static_cast<int>(_data[i]) > MaxElement)
-                MaxElement = static_cast<int>(_data[i]);
+            if (_data[i] > MaxElement)
+                MaxElement = _data[i];
         }
 
         while (MaxElement > 0) {
@@ -444,14 +444,14 @@ void SortingSystem<T>::bucketSort() {
 
         BucketCount = ceil(sqrt(this->_size));
 
-        int Min = static_cast<int>(this->_data[0]);
-        int Max = static_cast<int>(this->_data[0]);
+        int Min = this->_data[0];
+        int Max = this->_data[0];
 
         for (size_t i = 0; i < this->_size; i++) {
-            if (Min > static_cast<int>(_data[i]))
-                Min = static_cast<int>(_data[i]);
-            if (Max < static_cast<int>(_data[i]))
-                Max = static_cast<int>(_data[i]);
+            if (Min > _data[i])
+                Min = _data[i];
+            if (Max < _data[i])
+                Max = _data[i];
         }
         int range = (Max - Min) / BucketCount + 1e-9;
 
@@ -462,7 +462,7 @@ void SortingSystem<T>::bucketSort() {
         BucketsSizes = new int[BucketCount]();
 
         for (size_t i = 0; i < this->_size; i++) {
-            int index = (static_cast<int>(this->_data[i]) - Min) / range;
+            int index = (this->_data[i] - Min) / range;
             if (index >= BucketCount)
                 index = BucketCount - 1;
             Buckets[index][BucketsSizes[index]++] = this->_data[i];
