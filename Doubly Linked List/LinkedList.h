@@ -16,6 +16,12 @@ public:
 		this->_Next = nullptr;
 		this->_Prev = nullptr;
 	}
+	Node()
+	{
+		
+		this->_Next = nullptr;
+		this->_Prev = nullptr;
+	}
 	T getData()
 	{
 		return this->_Data;
@@ -90,7 +96,12 @@ public:
 		this->_Size--;
 		Node<T>* temp = this->_Head;
 		this->_Head = this->_Head->_Next;
-		this->_Head->_Prev = nullptr;
+
+		if (this->_Head != nullptr)
+			this->_Head->_Prev = nullptr;
+		else
+			this->_Tail = nullptr;
+
 		delete temp;
 	}
 	void pop_back()
@@ -101,7 +112,11 @@ public:
 		this->_Size--;
 		Node<T>* temp = this->_Tail;
 		this->_Tail = _Tail->_Prev;
-		this->_Tail->_Next = nullptr;
+
+		if (this->_Tail != nullptr)
+			this->_Tail->_Next = nullptr;
+		else
+			this->_Head = nullptr;
 		delete temp;
 	}
 	bool isEmpty()
